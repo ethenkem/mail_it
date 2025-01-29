@@ -5,12 +5,11 @@ export class UserRepo {
 
   async createUser(username, email, password) {
     const data = { username, email, password }
-    const doc = new this.model({ data });
-    doc.save();
+    const doc = this.model.create(data);
     return doc;
   }
 
   async getUserEmail(email) {
-    //const
+    return this.model.findOne({ email });
   }
 }
