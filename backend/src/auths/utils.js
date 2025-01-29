@@ -12,7 +12,9 @@ export const checkPassword = async (password, hashedPassowrd) => {
   return await bcrypt.compare(password, hashedPassowrd);
 }
 
-export const generateToken = async (id, email) => {
+export const generateToken = (id, email) => {
   const data = { id, email }
-  return jwt.sign(data, TOKEN_KEY);
+  return jwt.sign(data, TOKEN_KEY, {
+    expiresIn: 3 * 24 * 60 * 60,
+  });
 }

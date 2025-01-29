@@ -29,7 +29,7 @@ authRouter.post("/obtain-token", async (req, res) => {
     return res.status(400).json(data);
   }
   const token = generateToken(user.id, user.email);
-  const data = { status: true, message: "successful", data: { token, email: user.email, username: user.username } }
+  const data = { status: true, message: "successfull", data: { token, email: user.email, username: user.username } }
   return res.status(200).json(data);
 
 })
