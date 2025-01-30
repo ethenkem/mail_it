@@ -1,9 +1,9 @@
 import nodemailer from "nodemailer"
-import { EMAIL_USER, EMAIL_USER_PASSWORD } from "./constants"
+import { EMAIL_USER, EMAIL_USER_PASSWORD } from "./constants.js"
 
 export const emailTranspoter = nodemailer.createTransport({
   service: "gmail",
-  auth:{
+  auth: {
     user: EMAIL_USER,
     pass: EMAIL_USER_PASSWORD
   }

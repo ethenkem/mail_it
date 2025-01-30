@@ -2,9 +2,9 @@ import "dotenv/config";
 
 export const PORT = process.env.PORT;
 
-export const EMAIL_USER = "ethenatx@gmail.com"
+export const EMAIL_USER = process.env.EMAIL_USER
 
-export const EMAIL_USER_PASSWORD = ""
+export const EMAIL_USER_PASSWORD = process.env.EMAIL_USER_PASSWORD
 
 export const SALT_VALUE = 12;
 

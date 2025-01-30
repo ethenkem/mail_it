@@ -1,6 +1,8 @@
 import express from "express";
 import { UserRepo } from "./repo.js";
 import { checkPassword, generateToken, hashPassowrd } from "./utils.js";
+import { sendEmail } from "../utils/emails.js";
+
 
 const authRouter = express.Router();
 
@@ -13,6 +15,8 @@ authRouter.post("/register", async (req, res) => {
   }
   const _password = await hashPassowrd(password);
   const newUser = await repo.createUser(username, email, _password);
+  const context = { "code": 4353 }
+  sendEmail("ethenatx@gmail.com", email, "Email Verification", "registration_email", context)
   res.status(201).json({ status: true, message: "User Created Successfully", data: { username, email } })
 })
 

@@ -1,3 +1,5 @@
+import path from "path";
+
 export const handlebarOptions = {
   viewEngine: {
     partialsDir: path.resolve('./email_templates/'),
