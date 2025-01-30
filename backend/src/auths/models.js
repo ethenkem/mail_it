@@ -20,4 +20,17 @@ const userSchema = new Schema({
   }
 })
 
+const verificationCodeSchema = new Schema({
+  email: {
+    type: String,
+    required: true
+  },
+
+  code: {
+    type: String,
+    required: true
+  }
+})
+
+export const verificationCodeModel = model("verificationCodes", verificationCodeSchema)
 export const userModel = model("users", userSchema);
