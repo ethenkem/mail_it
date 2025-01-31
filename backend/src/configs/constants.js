@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-export const PORT = process.env.PORT;
+export const PORT = process.env.PORT || 3001
 
 export const EMAIL_USER = process.env.EMAIL_USER
 
