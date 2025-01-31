@@ -1,3 +1,1 @@
-export function generateCode() {
-  return
-}
+

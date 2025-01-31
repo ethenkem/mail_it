@@ -32,5 +32,5 @@ const verificationCodeSchema = new Schema({
   }
 })
 
-export const verificationCodeModel = model("verificationCodes", verificationCodeSchema)
+export const verificationCodeModel = model("verification_codes", verificationCodeSchema)
 export const userModel = model("users", userSchema);
