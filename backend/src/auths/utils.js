@@ -3,7 +3,7 @@ import { SALT_VALUE, TOKEN_KEY } from "../configs/constants.js";
 import jwt from "jsonwebtoken";
 
 export const hashPassowrd = async (password) => {
-  const hashedPassowrd = await bcrypt.hash(password, SALT_VALUE);
+  const hashedPassowrd = bcrypt.hash(password, parseInt(SALT_VALUE));
   return hashedPassowrd;
 }
 
