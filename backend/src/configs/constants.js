@@ -6,7 +6,7 @@ export const EMAIL_USER = process.env.EMAIL_USER
 
 export const EMAIL_USER_PASSWORD = process.env.EMAIL_USER_PASSWORD
 
-export const SALT_VALUE = 12;
+export const SALT_VALUE = process.env.SALT_VALUE;
 
 export const TOKEN_KEY = process.env.TOKEN_KEY;
 
