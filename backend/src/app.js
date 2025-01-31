@@ -10,11 +10,12 @@ const app = express();
 
 runMongoDbConfig();
 
-app.use(cors(corsOptions))
 
 app.use(morgan("dev"));
 
 app.use(express.json());
+
+app.options("*", cors(corsOptions))
 
 app.use("/auth", authRouter);
 export default app;
