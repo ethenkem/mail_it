@@ -17,7 +17,7 @@ function Login({ showLoginModal, setShowLoginModal }) {
       email, password
     }
     try {
-      const res = await axios.post(`${BACKEND_URL}/auths/register/`, data);
+      const res = await axios.post(`${BACKEND_URL}/auth/register`, data);
       setLoading(false)
       console.log(res)
       setError(res.data.message)
