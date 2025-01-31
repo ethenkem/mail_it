@@ -1,14 +1,32 @@
 import { Modal, Box } from '@mui/material'
+import axios from 'axios'
 import { Mail, Lock, X } from 'lucide-react'
 import React, { useState } from 'react'
+import { BACKEND_URL } from '../configs/constants'
 
 function Login({ showLoginModal, setShowLoginModal }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false)
 
 
-  const handleSumit = () => {
+  const handleSumit = async () => {
+    setLoading(true)
+    const data = {
+      email, password
+    }
+    try {
+      const res = await axios.post(`${BACKEND_URL}/auths/register/`, data);
+      setLoading(false)
+      console.log(res)
+      setError(res.data.message)
+    } catch (error) {
 
+    }
+    finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -26,7 +44,7 @@ function Login({ showLoginModal, setShowLoginModal }) {
 
           </div>
           <p className="text-gray-600 mb-5">Please enter your details to sign in</p>
-
+          {error && <p className='text-red-500 text-center text-sm'>{error}</p>}
           <form className="space-y-3">
             {/* Email Field */}
             <div>
@@ -85,11 +103,12 @@ function Login({ showLoginModal, setShowLoginModal }) {
             {/* Submit Button */}
             <button
               type="submit"
+              onClick={handleSumit}
               className="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium
                            hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                            focus:ring-indigo-600 transition-colors duration-200"
             >
-              Sign up
+              {loading ? "Submiting..." : "Submit"}
             </button>
 
             {/* Sign Up Link */}
