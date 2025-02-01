@@ -12,10 +12,10 @@ function NavBar({ setShowLoginModal }) {
           </div>
           <div className="hidden md:flex items-center text-lg space-x-8">
             <a href="#features" className="text-gray-600  hover:text-gray-900">Features</a>
-            <a href="#pricing" className="text-gray-600 hover:text-gray-900">Pricing</a>
+            <a href="#pricing" className="text-gray-600 hover:text-gray-900">Github</a>
             <a href="#docs" className="text-gray-600 hover:text-gray-900">Documentation</a>
             <button onClick={() => setShowLoginModal(true)} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
-              Get Started
+              Login
             </button>
           </div>
         </div>

@@ -4,14 +4,17 @@ import NavBar from '../layouts/NavBar';
 import HeroSection from '../components/home/HeroSection';
 import FeaturesSection from '../components/home/FeaturesSection';
 import Login from './Login';
+import Signup from './Signup'
 
 function HomePage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
 
   return (
     <div className="min-h-screen ">
       <NavBar setShowLoginModal={setShowLoginModal} />
-      <HeroSection showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
+      <HeroSection showSignupModal={showSignupModal} setShowSignupModal={setShowSignupModal} />
       <FeaturesSection />
       {/* New Section: Advanced Features */}
       {/* <div className="py-16 bg-white">
@@ -277,7 +280,17 @@ function HomePage() {
         </div>
       </footer>
 
-      <Login showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
+      <Signup
+        showSignupModal={showSignupModal}
+        setShowSignupModal={setShowSignupModal}
+        setShowLoginModal={setShowLoginModal}
+      />
+      <Login
+        showLoginModal={showLoginModal}
+        setShowLoginModal={setShowLoginModal}
+        setShowSignupModal={setShowSignupModal}
+      />
+
     </div>
 
   )
