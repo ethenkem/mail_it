@@ -36,7 +36,7 @@ function FeaturesSection() {
 
             {/* Feature 2 */}
             <div className="pt-6">
-              <div className="flow-root bg-gray-100 hover:bg-indigo-100 rounded-lg px-6 pb-8">
+              <div className="flow-root bg-gray-200 hover:bg-indigo-100 rounded-lg px-6 pb-8">
                 <div className="-mt-6">
                   <div>
                     <span className="inline-flex items-center justify-center p-3 bg-indigo-500 rounded-md shadow-lg">
@@ -53,7 +53,7 @@ function FeaturesSection() {
 
             {/* Feature 3 */}
             <div className="pt-6">
-              <div className="flow-root bg-gray-100 rounded-lg hover:bg-indigo-100  px-6 pb-8">
+              <div className="flow-root bg-gray-200 rounded-lg hover:bg-indigo-100  px-6 pb-8">
                 <div className="-mt-6">
                   <div>
                     <span className="inline-flex items-center justify-center p-3 bg-indigo-500 rounded-md shadow-lg">
