@@ -16,7 +16,7 @@ const HeroSection = ({ showSignupModal, setShowSignupModal }) => {
           Create, manage, and send beautiful email templates with ease. Perfect for teams who want to maintain consistent communication with their customers.
         </p>
         <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
-          <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
+          <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:justify-center sm:items-center sm:space-x-4">
             {user ? (
               <NavLink to={"/dashboard"} className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
                 Activities

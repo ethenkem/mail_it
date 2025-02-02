@@ -37,7 +37,7 @@ function EmailVerification({ showEmailVerificationModal, setShowEmailVerificatio
   }
 
   return (
-    <Modal className="flex justify-center items-center" open={showEmailVerificationModal} onClose={() => setShowEmailVerifcationModal(false)}>
+    <Modal className="flex justify-center items-center px-2 md:px-0" open={showEmailVerificationModal} onClose={() => setShowEmailVerifcationModal(false)}>
       <Box className="flex bg-white py-2 px-5  rounded-lg justify-center items-center">
         <div>
         </div>

@@ -38,7 +38,7 @@ function Login({
   }
 
   return (
-    <Modal className="flex justify-center items-center" open={showSignupModal} onClose={() => setShowSignupModal(false)}>
+    <Modal className="flex justify-center items-center px-2 md:px-0" open={showSignupModal} onClose={() => setShowSignupModal(false)}>
       <Box className="flex bg-white py-2 px-5  rounded-lg justify-center items-center">
         <div>
         </div>
