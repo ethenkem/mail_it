@@ -29,12 +29,11 @@ authRouter.post("/validate-email", async (req, res) => {
   const vcodeRepo = new VerificationCodeRepo();
   const { email, code } = req.body;
   const vcode = await vcodeRepo.getCodeEmail(email);
-  if (!vcode && !(await checkPassword(code, vcode.code))) {
-    res.status(400).json({ status: false, message: "invalid code or email" })
+  if (!vcode || !(await checkPassword(code, vcode.code))) {
+    return res.status(400).json({ status: false, message: "invalid code or email" })
   }
-  await vcodeRepo.deleteVcode(vcode.id);
-  res.status(200).json({ status: true, message: "email verified" })
-
+  await vcodeRepo.deleteVcode(vcode.email);
+  return res.status(200).json({ status: true, message: "email verified" })
 })
 
 authRouter.post("/obtain-token", async (req, res) => {

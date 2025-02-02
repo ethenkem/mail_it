@@ -30,7 +30,7 @@ export class VerificationCodeRepo {
     return this.model.findOne({ email })
   }
 
-  async deleteVcode(id) {
-    await this.model.deleteOne({ id });
+  async deleteVcode(email) {
+    await this.model.deleteOne({ email });
   }
 }

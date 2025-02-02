@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Mail, Zap, Shield, Users, ArrowRight, Code, Sparkles, Repeat, CheckCircle2, Settings, BarChart, Palette, Globe2, Clock, MessageSquare, FileText } from 'lucide-react';
 import NavBar from '../layouts/NavBar';
 import HeroSection from '../components/home/HeroSection';
 import FeaturesSection from '../components/home/FeaturesSection';
 import Login from './Login';
 import Signup from './Signup'
+import EmailVerification from "./EmailVerifcation"
+import UserContext from '../contexts/UserContext';
 
 function HomePage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
-
+  const [showEmailVerificationModal, setShowEmailVerificationModal] = useState(false)
+  const { user, setUser } = useContext(UserContext)
 
   return (
     <div className="min-h-screen ">
@@ -284,11 +287,17 @@ function HomePage() {
         showSignupModal={showSignupModal}
         setShowSignupModal={setShowSignupModal}
         setShowLoginModal={setShowLoginModal}
+        setShowEmailVerification={setShowEmailVerificationModal}
       />
       <Login
         showLoginModal={showLoginModal}
         setShowLoginModal={setShowLoginModal}
         setShowSignupModal={setShowSignupModal}
+      />
+      <EmailVerification
+        showEmailVerificationModal={showEmailVerificationModal}
+        setShowEmailVerificationModal={setShowEmailVerificationModal}
+        setShowLoginModal={setShowLoginModal}
       />
 
     </div>

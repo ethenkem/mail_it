@@ -4,15 +4,9 @@ import { Mail, Lock, X, User } from 'lucide-react'
 import React, { useState } from 'react'
 import { BACKEND_URL } from '../configs/constants'
 
-function Login({
-  showSignupModal,
-  setShowSignupModal,
-  setShowLoginModal,
-  showEmailVerification,
-  setShowEmailVerification }) {
+function EmailVerification({ showEmailVerificationModal, setShowEmailVerificationModal, setShowLoginModal }) {
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [username, setUsername] = useState("")
+  const [code, setCode] = useState("")
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false)
 
@@ -20,16 +14,21 @@ function Login({
   const handleSumit = async () => {
     setLoading(true)
     const data = {
-      email, username, password
+      email, code
     }
     try {
-      const res = await axios.post(`${BACKEND_URL}/auth/register`, data);
+      const res = await axios.post(`${BACKEND_URL}/auth/validate-email`, data);
       setLoading(false)
-      setError(res.data.message)
-      setShowSignupModal(false)
-      setShowEmailVerification(true)
+      if (res.status == 200) {
+        setShowEmailVerificationModal(false)
+        setShowLoginModal(true)
+      }
+      else {
+        console.log(res.status)
+      }
     } catch (error) {
       setLoading(false)
+      console.log(error)
       setError(error.response.data.message)
     }
     finally {
@@ -38,44 +37,22 @@ function Login({
   }
 
   return (
-    <Modal className="flex justify-center items-center" open={showSignupModal} onClose={() => setShowSignupModal(false)}>
+    <Modal className="flex justify-center items-center" open={showEmailVerificationModal} onClose={() => setShowEmailVerifcationModal(false)}>
       <Box className="flex bg-white py-2 px-5  rounded-lg justify-center items-center">
         <div>
         </div>
         <div className="p-8">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Mailit</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Verify Email</h2>
             <button
-              onClick={() => setShowSignupModal(false)}>
+              onClick={() => setShowEmailVerificationModal(false)}>
               <X size={20} />
             </button>
 
           </div>
-          <p className="text-gray-600 mb-5">Let's get you started</p>
+          <p className="text-gray-600 mb-5">Please enter the code sent your email</p>
           {error && <p className='text-red-500 text-center text-sm'>{error}</p>}
           <div className="space-y-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Username
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User size={20} className="text-gray-400" />
-                </div>
-                <input
-                  value={username}
-                  required
-                  onChange={(e) => { setUsername(e.target.value) }}
-                  type="text"
-                  className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg
-                               focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600
-                               placeholder:text-gray-400 text-gray-900"
-                  placeholder="Enter a username"
-                />
-              </div>
-            </div>
-
-
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -98,10 +75,10 @@ function Login({
               </div>
             </div>
 
-            {/* Password Field */}
+            {/* code Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
+                Code
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -109,9 +86,9 @@ function Login({
                 </div>
                 <input
                   required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  type="code"
                   className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg
                                focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600
                                placeholder:text-gray-400 text-gray-900"
@@ -119,8 +96,6 @@ function Login({
                 />
               </div>
             </div>
-
-
             {/* Submit Button */}
             <button
               type="submit"
@@ -129,23 +104,12 @@ function Login({
                            hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                            focus:ring-indigo-600 transition-colors duration-200"
             >
-              {loading ? "Submiting..." : "Submit"}
+              {loading ? "Verifying..." : "Verify"}
             </button>
-
-            {/* Sign Up Link */}
-            <p className="text-center text-sm text-gray-600">
-              Already have an account{"  "}
-              <button onClick={() => {
-                setShowSignupModal(false)
-                setShowLoginModal(true)
-              }} type="button" className="font-medium text-indigo-600 hover:text-indigo-700">
-                Sign in
-              </button>
-            </p>
           </div>
         </div>
       </Box>
     </Modal>
   )
 }
-export default Login
+export default EmailVerification

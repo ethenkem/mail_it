@@ -1,14 +1,18 @@
 import { Modal, Box } from '@mui/material'
 import axios from 'axios'
 import { Mail, Lock, X, User } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BACKEND_URL } from '../configs/constants'
+import UserContext from '../contexts/UserContext'
+import { useNavigate } from "react-router";
 
 function Login({ showLoginModal, setShowLoginModal, setShowSignupModal }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false)
+  const { user, setUser } = useContext(UserContext)
+  const navigate = useNavigate()
 
 
   const handleSumit = async () => {
@@ -19,7 +23,9 @@ function Login({ showLoginModal, setShowLoginModal, setShowSignupModal }) {
     try {
       const res = await axios.post(`${BACKEND_URL}/auth/obtain-token`, data);
       setLoading(false)
-      setError(res.data.message)
+      //setError(res.data.message)
+      setUser(res.data.data)
+      navigate("/dashboard")
     } catch (error) {
       setLoading(false)
       setError(error.response.data.message)
