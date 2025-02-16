@@ -9,7 +9,6 @@ function Dashboard() {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
-  console.log(user)
 
   const recentTemplates = [
     { id: 1, name: 'Welcome Email', category: 'Onboarding', lastModified: '2h ago' },
@@ -33,6 +32,7 @@ function Dashboard() {
               <p className='text-lg border rounded-md px-2 border-gray-400'>{user.username}</p>
               <button onClick={() => {
                 setUser(null)
+                localStorage.removeItem("user")
                 navigate("/")
               }}>
                 Logout

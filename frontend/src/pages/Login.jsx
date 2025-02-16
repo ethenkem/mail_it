@@ -24,7 +24,9 @@ function Login({ showLoginModal, setShowLoginModal, setShowSignupModal }) {
       const res = await axios.post(`${BACKEND_URL}/auth/obtain-token`, data);
       setLoading(false)
       //setError(res.data.message)
-      setUser(res.data.data)
+      const user = res.data.data
+      setUser(user)
+      localStorage.setItem("user", JSON.stringify(user))
       navigate("/dashboard")
     } catch (error) {
       setLoading(false)
