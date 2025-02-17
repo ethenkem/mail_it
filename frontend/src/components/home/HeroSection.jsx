@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { NavLink } from "react-router";
+import HeroBg from "../../assets/bg.jpg"
 
 const HeroSection = ({ showSignupModal, setShowSignupModal }) => {
   const { user, setUser } = useContext(UserContext)
 
   return (
-    <div className="relative px-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  bg-gradient-to-b from-white  to-white pt-20 pb-16 rounded-4xl text-center lg:pt-32">
+    <div className="relative px-8 w-full">
+      <div className="max-w-7xl mx-auto px-4 z-50 sm:px-6 lg:px-8  bg-gradient-to-b from-white  to-white pt-20 pb-16 rounded-4xl text-center lg:pt-32">
         <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
           <span className="block">Streamline Your Email</span>
           <span className="block text-indigo-600">Communication Strategy</span>

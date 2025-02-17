@@ -6,7 +6,7 @@ export const _htmlContent = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Template</title>
     <style>
-        body {
+        #body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
@@ -63,8 +63,7 @@ export const _htmlContent = `
         }
     </style>
 </head>
-<body>
-
+<body id="body">
     <div class="email-container">
         <div class="header">Welcome to Our Newsletter</div>
         <div class="email-body">

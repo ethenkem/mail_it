@@ -13,7 +13,6 @@ function CustomizeTemplate() {
 
   return (
     <Box>
-      <NavBar />
       <div className='flex flex-row space-x-1  bg-neutral-900  h-screen'>
         <div className="w-1/2">
           <Editor

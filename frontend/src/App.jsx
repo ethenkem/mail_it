@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router"
 import Dashboard from './pages/Dashboard'
 import UserContext from './contexts/UserContext';
 import CustomizeTemplate from './pages/CustomizeTemplate';
+import Documentation from './pages/Documentation';
+import Main from './layouts/Main';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -21,9 +24,13 @@ function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/customizer' element={<CustomizeTemplate />} />
+          <Route path='/' element={<Main />} >
+            <Route path='' element={<HomePage />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/customizer' element={<CustomizeTemplate />} />
+            <Route path='/docs' element={<Documentation />} />
+          </Route>
+          <Route path='/login' element={<LoginPage />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>
