@@ -1,23 +1,47 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { BACKEND_URL } from "../../configs/constants"
+import UserContext from '../../contexts/UserContext'
+import { Mail } from 'lucide-react'
+import { NavLink } from 'react-router'
 
-function Projects() {
-  const [userProjects, setUserProjects] = useState([])
-
-  const fetchProjects = async () => {
-    const res = await axios.get(`${BACKEND_URL}/projects`);
-    setUserProjects(res.data)
-  }
-
-  useEffect(() => {
-    fetchProjects()
-  }, [])
+function Projects({ userProjects }) {
+  const { user } = useContext(UserContext)
 
   return (
     <div>
-      {userProjects ? "Projects" : "No Projects"}
+      {userProjects ?
+        <div className="bg-white shadow rounded-lg">
+          <div className="px-4 py-5 sm:px-6">
+            <h2 className="text-lg leading-6 font-medium text-gray-900">Recent Projects</h2>
+          </div>
+          <div className="border-t border-gray-200">
+            <ul className="divide-y divide-gray-200">
+              {userProjects.map((project) => (
+                <li key={project?._id} className="px-4 py-4 sm:px-6 hover:bg-gray-50 cursor-pointer">
+                  <div className="flex items-center justify-items-stretch justify-between">
+                    <div className="flex items-center">
+                      <Mail className="h-5 w-5 text-gray-400" />
+                      <div className="ml-3">
+                        <p className="text-sm font-medium text-gray-900">{project?.projectName}</p>
+                        <p className="text-sm text-gray-500">{project?.description}</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <NavLink to={`/templates/${project._id}/`} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1'>Select Template</NavLink>
+                    </div>
+
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        :
+        "No Projects"}
     </div>
   )
 }

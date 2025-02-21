@@ -1,19 +1,32 @@
 import { Box, Modal } from '@mui/material'
 import axios from 'axios'
 import { FeatherIcon, Pin, SquareChartGantt } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { BACKEND_URL } from '../../configs/constants'
+import UserContext from '../../contexts/UserContext'
 
 function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetchProjects }) {
   const [projectName, setProjectName] = useState("")
   const [description, setDescription] = useState("")
   const [loading, setLoading] = useState(false)
+  const { user } = useContext(UserContext)
 
-  const handleSubmit = async (showCreateProjectModal, setShowCreateProjectModal) => {
+  const handleSubmit = async () => {
     const data = { projectName, description }
+    console.log(user)
     setLoading(true)
     try {
-      const res = await axios.post(`${BACKEND_URL}/projects/create`, data)
-      //await fetchProjects()
+      const res = await axios.post(`${BACKEND_URL}/projects/create`, data, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          'Content-Type': 'application/json',
+        }
+      },)
+      setShowCreateProjectModal(false);
+      setProjectName("")
+      setDescription("")
+      setLoading(false)
+      await fetchProjects()
     } catch (error) {
       setLoading(false)
     }
@@ -44,7 +57,7 @@ function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetc
               <textarea rows={10} className='bg-white pl-10 w-full outline-1 outline-gray-300 rounded-md px-4 py-2' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='For emailing my users'></textarea>
             </div>
           </div>
-          <button className='w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium
+          <button onClick={() => handleSubmit()} className='w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium
                            hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                            focus:ring-indigo-600 transition-colors duration-200'>
             {loading ? "Adding..." : "Add Project"}

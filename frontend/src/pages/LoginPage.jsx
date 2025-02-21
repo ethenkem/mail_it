@@ -48,7 +48,7 @@ function LoginPage() {
           </div>
           <p className="text-gray-600 mb-5">Please enter your details to sign in</p>
           {error && <p className='text-red-500 text-center text-sm'>{error}</p>}
-          <div className="space-y-3">
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -130,7 +130,7 @@ function LoginPage() {
                 Sign up
               </button>
             </p>
-          </div>
+          </form>
         </div>
       </Box>
     </div>

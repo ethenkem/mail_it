@@ -1,25 +1,38 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Mail, Plus, Settings, Search, Layout, Clock, Star } from 'lucide-react';
 import CreateProject from "../components/dashboard/CreateProject"
 import UserContext from '../contexts/UserContext';
 import { NavLink, useNavigate } from 'react-router';
+import Projects from '../components/dashboard/Projects';
+import { BACKEND_URL } from '../configs/constants';
+import axios from 'axios';
 
 function Dashboard() {
   const [showAddProject, setShowAddProject] = useState(false)
   const { user, setUser } = useContext(UserContext)
+  const [userProjects, setUserProjects] = useState([])
+
   const navigate = useNavigate()
 
+  const fetchProjects = async () => {
+    const res = await axios.get(`${BACKEND_URL}/projects`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        'Content-Type': 'application/json',
+      }
+    });
+    setUserProjects(res.data)
+  }
 
-  const recentTemplates = [
-    { id: 1, name: 'Welcome Email', category: 'Onboarding', lastModified: '2h ago' },
-    { id: 2, name: 'Password Reset', category: 'Security', lastModified: '1d ago' },
-    { id: 3, name: 'Newsletter', category: 'Marketing', lastModified: '2d ago' },
-  ];
+  useEffect(() => {
+    fetchProjects()
+  }, [])
+
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      {/* <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -43,7 +56,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -113,38 +126,10 @@ function Dashboard() {
             </div>
           </div>
         </div>
-
-        {/* Recent Templates */}
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-4 py-5 sm:px-6">
-            <h2 className="text-lg leading-6 font-medium text-gray-900">Recent Projects</h2>
-          </div>
-          <div className="border-t border-gray-200">
-            <ul className="divide-y divide-gray-200">
-              {recentTemplates.map((template) => (
-                <li key={template.id} className="px-4 py-4 sm:px-6 hover:bg-gray-50 cursor-pointer">
-                  <div className="flex items-center justify-items-stretch justify-between">
-                    <div className="flex items-center">
-                      <Mail className="h-5 w-5 text-gray-400" />
-                      <div className="ml-3">
-                        <p className="text-sm font-medium text-gray-900">{template.name}</p>
-                        <p className="text-sm text-gray-500">{template.category}</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <p className='text-gray-400'>40 Messages Delivered</p>
-                    </div>
-
-                    <div className="text-sm text-gray-500">{template.lastModified}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        {/* Recent Projects */}
+        <Projects userProjects={userProjects}/>
       </main>
-      <CreateProject showCreateProjectModal={showAddProject} setShowCreateProjectModal={setShowAddProject} fetchProjects={null} />
+      <CreateProject showCreateProjectModal={showAddProject} setShowCreateProjectModal={setShowAddProject} fetchProjects={fetchProjects} />
     </div>
   );
 

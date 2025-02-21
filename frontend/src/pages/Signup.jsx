@@ -53,7 +53,7 @@ function Login({
           </div>
           <p className="text-gray-600 mb-5">Let's get you started</p>
           {error && <p className='text-red-500 text-center text-sm'>{error}</p>}
-          <div className="space-y-3">
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Username
@@ -142,7 +142,7 @@ function Login({
                 Sign in
               </button>
             </p>
-          </div>
+          </form>
         </div>
       </Box>
     </Modal>

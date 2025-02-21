@@ -13,6 +13,11 @@ export class UserRepo {
   async getUserEmail(email) {
     return this.model.findOne({ email });
   }
+
+
+  async getUserById(id) {
+    return this.model.findOne({ id });
+  }
 }
 
 

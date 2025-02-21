@@ -12,9 +12,9 @@ function CustomizeTemplate() {
   }
 
   return (
-    <Box>
+    <Box className="h-screen">
       <div className='flex flex-row space-x-1  bg-neutral-900  h-screen'>
-        <div className="w-1/2">
+        <div className="w-1/2 h-screen">
           <Editor
             theme='vs-dark'
             defaultLanguage="html"
@@ -23,7 +23,7 @@ function CustomizeTemplate() {
             onChange={handleEditorChange}
           />
         </div>
-        <HtmlTemplateLoader htmlContent={htmlContent} />
+          <HtmlTemplateLoader htmlContent={htmlContent} />
       </div>
     </Box>
   )

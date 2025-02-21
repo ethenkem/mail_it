@@ -1,4 +1,4 @@
-import { Model, model, Schema } from "mongoose"
+import mongoose, { Model, model, Schema } from "mongoose"
 
 
 const projectSchema = Schema({
@@ -10,6 +10,11 @@ const projectSchema = Schema({
   description: {
     type: String,
     required: true
+  },
+
+  user: {
+    type: mongoose.Types.ObjectId, 
+    ref: "users",
   }
 })
 

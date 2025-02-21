@@ -7,6 +7,7 @@ import CustomizeTemplate from './pages/CustomizeTemplate';
 import Documentation from './pages/Documentation';
 import Main from './layouts/Main';
 import LoginPage from './pages/LoginPage';
+import Templates from './pages/Templates';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -27,9 +28,11 @@ function App() {
           <Route path='/' element={<Main />} >
             <Route path='' element={<HomePage />} />
             <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/customizer' element={<CustomizeTemplate />} />
+            <Route path='/templates' element={<Templates />} />
+            <Route path='/templates/:id/' element={<Templates />} />     
             <Route path='/docs' element={<Documentation />} />
           </Route>
+      <Route path='/customizer' element={<CustomizeTemplate />} />
           <Route path='/login' element={<LoginPage />} />
         </Routes>
       </UserContext.Provider>
