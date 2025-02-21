@@ -56,7 +56,7 @@ export const _htmlContent = `
         .section {
             margin-top: 20px;
             padding: 20px;
-            background: #f8f8f8;
+            background: #e6e6e6;
             border-radius: 5px;
         }
     </style>
