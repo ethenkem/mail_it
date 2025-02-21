@@ -29,10 +29,10 @@ function App() {
             <Route path='' element={<HomePage />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/templates' element={<Templates />} />
-            <Route path='/templates/:id/' element={<Templates />} />     
+            <Route path='/templates/:id/' element={<Templates />} />
             <Route path='/docs' element={<Documentation />} />
           </Route>
-      <Route path='/customizer' element={<CustomizeTemplate />} />
+          <Route path='/customizer' element={<CustomizeTemplate />} />
           <Route path='/login' element={<LoginPage />} />
         </Routes>
       </UserContext.Provider>

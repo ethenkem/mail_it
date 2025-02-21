@@ -12,9 +12,9 @@ function CustomizeTemplate() {
   }
 
   return (
-    <Box className="h-screen">
-      <div className='flex flex-row space-x-1  bg-neutral-900  h-screen'>
-        <div className="w-1/2 h-screen">
+    <Box className="h-screen overflow-y-scroll">
+      <div className='flex  flex-col w-full sm:flex-row space-x-1  bg-neutral-900  h-screen'>
+        <div className="w-full order-2 sm:order-0 sm:w-1/2 h-screen">
           <Editor
             theme='vs-dark'
             defaultLanguage="html"
