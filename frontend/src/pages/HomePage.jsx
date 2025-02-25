@@ -7,6 +7,7 @@ import Login from './Login';
 import Signup from './Signup'
 import EmailVerification from "./EmailVerifcation"
 import UserContext from '../contexts/UserContext';
+import bg2 from "./../assets/bg2.svg"
 import SideBar from '../components/SideBar';
 
 function HomePage() {
@@ -18,7 +19,7 @@ function HomePage() {
 
 
   return (
-    <div className="min-h-screen ">
+    <div style={{   backgroundImage: `url(" data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1090%26quot%3b)' fill='none'%3e%3cpath d='M1170.3434186173236 205.36257979951037L1118.6502643926935 171.79265292970564 1094.1419512003015 266.1173477015531z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M22.236772493855426 445.9631258283205L63.29989030159731 538.1923984756698 114.46604514120477 404.90000802057864z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M247.70518181570753 35.83723234545449L192.22902442153656-46.40955329021283 96.5969246651211 77.92807561887729z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M627.8180459445468 172.15511293902392L623.091947840682 303.89309417809056 725.7660128882133 251.57804503332693z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M689.4764006170759 157.6076078478114L615.503534330054 157.6076078478114 652.489967473565 268.5669072783442z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M442.8559516517745 369.68594503964533L460.63352067141676 286.04905855650486 376.9966341882763 268.2714895368626 359.219065168634 351.90837602000306z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1225.4967769851885 112.88670016019657L1198.6082571756776 229.35367501030402 1341.9637518352959 139.77521996970734z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1305.5097346478246 441.8598583366128L1299.7291241700416 359.19327713378374 1178.6195576046896 409.19748345187304z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M968.3065276767984 472.6550666560055L1111.8734632283085 405.87520459709634 999.8953412793501 324.51833679500743z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M290.8748013347416 334.6683987980326L269.4674499719225 182.3471790745896 117.1462302484795 203.7545304374087 138.5535816112986 356.0757501608517z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M19.64140043017658 534.3674066763481L114.81635407562501 651.8986863064675 232.34763370574447 556.7237326610191 137.17268006029605 439.1924530308996z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1496.9475726128478 441.524929356718L1498.92839780242 328.0435302488812 1385.4469986945833 326.06270505930894 1383.466173505011 439.5441041671458z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M532.439615519896 332.07945054379394L637.3400064787327 307.9665647478225 574.3809372087201 238.04343449454848z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M699.682931948215 321.02938709054746L568.3692338213522 427.15807445128826 705.2139516697373 482.4469293290482z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M129.4553772561391 273.3914071735533L66.84539956030179 407.6589376352255 263.72290771781127 336.0013848693906z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M501.76125878236746 370.9804665249561L588.7014487929303 366.42412423605685 497.2049164934682 284.0402765143934z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1166.9123789085131 454.8633558000057L1262.1690120180665 482.1777558070898 1289.4834120251505 386.92112269753653 1194.2267789155972 359.60672269045244z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1383.116561156015 372.3321952946513L1290.7190147982083 474.950066619142 1393.3368861226988 567.3476129769488 1485.7344324805056 464.729741652458z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1341.0558738192076 93.29635623092787L1383.5431295328597 9.910421817230329 1237.2206000554872-12.127494546399106z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1462.04885639669 43.93156491444562L1375.0084570431238 33.244347699004535 1364.3212398276828 120.28474705257082 1451.361639181249 130.97196426801193z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1090'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e ")` }} className="bg-white bg-cover min-h-screen ">	
     {/*<NavBar setShowLoginModal={setShowLoginModal} /> */}
       <HeroSection showSignupModal={showSignupModal} setShowSignupModal={setShowSignupModal} />
       <FeaturesSection />
@@ -78,7 +79,7 @@ function HomePage() {
       </div> */}
 
       {/* New Section: Testimonials */}
-      <div className="bg-gray-50 py-16 lg:py-24">
+      <div className="py-16 lg:py-24">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
             <div className="text-center">
@@ -159,7 +160,7 @@ function HomePage() {
       </div>
 
       {/* Keeping existing Stats Section */}
-      <div className="bg-gray-50 pt-12 sm:pt-16">
+      <div className="pt-12 sm:pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
@@ -170,9 +171,9 @@ function HomePage() {
             </p>
           </div>
         </div>
-        <div className="mt-10 pb-12 bg-white sm:pb-16">
+        <div className="mt-10 pb-12 sm:pb-16">
           <div className="relative">
-            <div className="absolute inset-0 h-1/2 bg-gray-50" />
+            <div className="absolute inset-0 h-1/2" />
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-4xl mx-auto">
                 <dl className="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-3">
@@ -196,7 +197,7 @@ function HomePage() {
       </div>
 
       {/* New Section: Support Features */}
-      <div className="bg-white py-16 sm:py-24">
+      <div className="py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Support</h2>

@@ -10,7 +10,7 @@ const HeroSection = ({ showSignupModal, setShowSignupModal }) => {
 
   return (
     <div className="relative px-8 w-full flex flex-col sm:flex-row sm:justify-between sm:items-center">
-      <div className="max-w-7xl sm:w-1/2 px-4 z-50 sm:px-6 lg:px-8  bg-gradient-to-b from-white  to-white pt-8 pb-16 rounded-4xl text-center lg:pt-20">
+      <div className="max-w-7xl sm:w-1/2 px-4 z-50 sm:px-6 lg:px-8  pt-16 pb-16 rounded-4xl text-center lg:pt-20">
         <h1 className="text-4xl text-start tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
           <span className="block">Streamline Your Email</span>
           <span className="block text-indigo-600">Communication Strategy</span>

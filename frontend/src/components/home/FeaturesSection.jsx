@@ -3,7 +3,7 @@ import React from 'react'
 
 function FeaturesSection() {
   return (
-    <div className="py-16 bg-white" id="features">
+    <div className="py-16" id="features">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
