@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import authRouter from "./auths/routes.js";
+import mailerRouter from "./mailings/routes.js"
 import { runMongoDbConfig } from "./configs/db.js";
 import cors from "cors"
 import projectRouter from "./projects/routes.js";
@@ -18,5 +19,6 @@ app.use(cors());
 
 app.use("/auth", authRouter);
 app.use("/projects", projectRouter)
+app.use("/mailers", mailerRouter)
 
 export default app;

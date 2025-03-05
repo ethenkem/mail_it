@@ -1,6 +1,7 @@
-
+import {BACKEND_URL} from "../configs/constants"
 import { useState } from "react";
 import { Mail, User, MessageCircle } from "lucide-react";
+import axios from "axios";
 
 const EmailSender = () => {
   const [recipients, setRecipients] = useState("");
@@ -18,7 +19,18 @@ const EmailSender = () => {
     </div>
   `;
 
-  const handleSendEmail = () => {
+  const handleSendEmail = async () => {
+    const data = {
+      to: recipients,
+      subject: subject,
+      message: message,
+    }
+    try {
+      const res = await axios.post((`${BACKEND_URL}/mailer/send-mail`), data)
+    }
+    catch {
+
+    }
     console.log("Sending email to:", recipients);
     console.log("Subject:", subject);
     console.log("Message:", message);

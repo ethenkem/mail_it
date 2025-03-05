@@ -11,16 +11,11 @@ import Templates from './pages/Templates';
 import EmailSender from './pages/EmailSender';
 
 function App() {
-  const [user, setUser] = useState(null)
-  // useEffect(() => {
-  //  const currentUser = localStorage.getItem("user")
-  //  if (!currentUser){
-  //    setUser(null)
-  //  }
-  //  else{
-  //    setUser(JSON.parse(currentUser))
-  //  }
-  //},[])
+  const getUserFromStorage = () => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  };
+  const [user, setUser] = useState(getUserFromStorage)
 
   return (
     <BrowserRouter>
@@ -30,7 +25,7 @@ function App() {
             <Route path='' element={<HomePage />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/templates' element={<Templates />} />
-            <Route path='/send-email' element={<EmailSender />} />
+            <Route path='/dashboard/compose-email/:projectId/' element={<EmailSender />} />
             <Route path='/templates/:id/' element={<Templates />} />
             <Route path='/docs' element={<Documentation />} />
           </Route>
