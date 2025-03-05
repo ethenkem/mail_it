@@ -8,6 +8,7 @@ import Documentation from './pages/Documentation';
 import Main from './layouts/Main';
 import LoginPage from './pages/LoginPage';
 import Templates from './pages/Templates';
+import EmailSender from './pages/EmailSender';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -29,6 +30,7 @@ function App() {
             <Route path='' element={<HomePage />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/templates' element={<Templates />} />
+            <Route path='/send-email' element={<EmailSender />} />
             <Route path='/templates/:id/' element={<Templates />} />
             <Route path='/docs' element={<Documentation />} />
           </Route>

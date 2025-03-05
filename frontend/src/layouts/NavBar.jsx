@@ -24,7 +24,7 @@ function NavBar({ setShowLoginModal }) {
             <AlignJustify onClick={() => setOpenSideBar(true)} className='text-indigo-600 hover:text-indigo-200' size={35} />
           </div>
           <div className="hidden md:flex items-center text-lg space-x-8">
-            <a href="#features" className="text-gray-600  hover:text-gray-900">Features</a>
+            <a href="/#features" className="text-gray-600  hover:text-gray-900">Features</a>
             <NavLink to={"/templates"} className="text-gray-600 hover:text-gray-900">View Templates</NavLink>
             <NavLink to={"/docs"} className="text-gray-600 hover:text-gray-900">Documentation</NavLink>
             {user ?

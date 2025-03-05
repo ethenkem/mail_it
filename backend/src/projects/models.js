@@ -12,10 +12,28 @@ const projectSchema = Schema({
     required: true
   },
 
+  template: {
+    type: String,
+    default: null
+  },
+
+  customEmail: {
+    type: String,
+    default: null
+  },
+
+  customEmailPassword: {
+    type: String,
+    default: null
+  },
+
   user: {
-    type: mongoose.Types.ObjectId, 
+    type: mongoose.Types.ObjectId,
     ref: "users",
   }
-})
+},
+  {
+    timestamps: true
+  })
 
 export const projectModel = model("projects", projectSchema);

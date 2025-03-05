@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { BACKEND_URL } from "../../configs/constants"
 import UserContext from '../../contexts/UserContext'
+import NoProjects from './NoProjects'
 import { Mail } from 'lucide-react'
 import { NavLink } from 'react-router'
 
@@ -39,9 +40,8 @@ function Projects({ userProjects }) {
             </ul>
           </div>
         </div>
-
         :
-        "No Projects"}
+        <NoProjects  />}
     </div>
   )
 }

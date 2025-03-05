@@ -4,6 +4,7 @@ import { FeatherIcon, Pin, SquareChartGantt } from 'lucide-react'
 import React, { useContext, useState } from 'react'
 import { BACKEND_URL } from '../../configs/constants'
 import UserContext from '../../contexts/UserContext'
+import { BarLoader } from 'react-spinners'
 
 function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetchProjects }) {
   const [projectName, setProjectName] = useState("")
@@ -45,7 +46,7 @@ function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetc
               <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
                 <Pin size={20} className='text-gray-400' />
               </div>
-              <input className='bg-white pl-10 w-full outline-1 outline-gray-300 rounded-md px-4 py-2' placeholder='Shop Project' value={projectName} onChange={(e) => { setProjectName(e.target.value) }} />
+              <input required className='bg-white pl-10 w-full outline-1 outline-gray-300 rounded-md px-4 py-2' placeholder='Shop Project' value={projectName} onChange={(e) => { setProjectName(e.target.value) }} />
             </div>
           </div>
           <div className='flex flex-col justify-center mb-4'>
@@ -54,13 +55,13 @@ function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetc
               <div className='absolute pl-3 pt-2 left-0 flex items-center'>
                 <SquareChartGantt className='text-gray-400' />
               </div>
-              <textarea rows={10} className='bg-white pl-10 w-full outline-1 outline-gray-300 rounded-md px-4 py-2' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='For emailing my users'></textarea>
+              <textarea required rows={10} className='bg-white pl-10 w-full outline-1 outline-gray-300 rounded-md px-4 py-2' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='For emailing my users'></textarea>
             </div>
           </div>
-          <button onClick={() => handleSubmit()} className='w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium
+          <button onClick={() => handleSubmit()} className='flex items-center justify-center w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium
                            hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                            focus:ring-indigo-600 transition-colors duration-200'>
-            {loading ? "Adding..." : "Add Project"}
+            {loading ? <BarLoader color="white" className='mx-auto' /> : "Add Project"}
           </button>
         </div>
       </Box>
