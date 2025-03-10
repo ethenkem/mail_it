@@ -12,7 +12,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@adminjs/express": "^6.1.1",
+    "@adminjs/mongoose": "^4.1.0",
+    "@adminjs/upload": "^4.0.2",
+    "adminjs": "^7.8.15",
     "bcrypt": "^5.1.1",
+    "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -20,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.10.0",
     "nodemailer-express-handlebars": "^7.0.0"
   }

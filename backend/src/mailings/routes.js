@@ -7,8 +7,8 @@ import express from "express"
 const mailerRouter = express.Router()
 
 mailerRouter.post("/send-mail", async (req, res) => {
-  _projectRepo = new ProjectRepo()
-  _emailRepo = new EmailModel()
+  const _projectRepo = new ProjectRepo()
+  const _emailRepo = new EmailModel()
   const projectId = req.param.projectId;
   const project = await _project_repo.getProjectById(projectId);
   const { to, subject, message } = req.body;
