@@ -15,7 +15,9 @@ function NavBar({ setShowLoginModal }) {
     const user = localStorage.getItem("user")
     if (user) {
       localStorage.clear("user")
+      setUser(null)
       navigate("/")
+      window.location.reload()
     }
     navigate("/")
   }
