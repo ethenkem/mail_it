@@ -6,12 +6,16 @@ const cloudinaryV2 = cloudinary.v2
 cloudinaryV2.config({
   cloud_name: CLOUDINARY_CLOUD_NAME,
   api_key: CLOUDINARY_API_KEY,
-  api_secret: CLOUDINARY_API_SECRET 
+  api_secret: CLOUDINARY_API_SECRET
 })
 
 export async function handleUpload(file) {
-  const res = await cloudinaryV2.uploader.upload(file, {
-    resource_type: "auto",
-  });
-  return res;
+  try {
+    const res = await cloudinaryV2.uploader.upload(file, {
+      resource_type: "auto",
+    });
+    return res;
+  } catch (err) {
+    console.log(err)
+  }
 }

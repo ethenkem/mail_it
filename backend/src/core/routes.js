@@ -19,6 +19,8 @@ coreRouter.post("/upload-template", templateUploadMiddleware, async (req, res) =
   fs.writeFileSync(_template, templateFile.buffer);
   let dataURI = "data:" + templateImage.mimetype + ";base64," + b64;
   const cldRes = await handleUpload(dataURI);
+
+  console.log("ksks")
   const template = await repo.addTemplate(templateName, templateDescription, _template, cldRes.secure_url);
   res.status(200).json({ status: true, message: "template has been added", data: template });
 })
@@ -37,6 +39,11 @@ coreRouter.post("/upload-raw-template", templateUploadMiddleware, async (req, re
   res.status(200).json({ status: true, message: "template has been added", data: null });
 })
 
+coreRouter.get("/templates", async (req, res) => {
+  const repo = new TemplateRepo()
+  const templates = await repo.getAll()
+  res.status(200).json(templates);
+})
 
 coreRouter.get("/stats", authenticateToken, async (req, res) => {
   const _user = req.user;

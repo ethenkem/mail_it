@@ -1,17 +1,19 @@
-import {BACKEND_URL} from "../configs/constants"
+import { BACKEND_URL } from "../configs/constants"
 import { useState } from "react";
-import { Mail, User, MessageCircle } from "lucide-react";
+import { Mail, User, MessageCircle, Pin, Handshake } from "lucide-react";
 import axios from "axios";
 
 const EmailSender = () => {
   const [recipients, setRecipients] = useState("");
+  const [topic, setTopic] = useState("")
+  const [greeting, setGreeting] = useState("")
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
   const emailTemplate = `
     <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 10px; width: 100%; max-width: 600px; word-wrap: break-word; overflow-wrap: break-word;">
-      <h2 style="color: #4f46e5;">Welcome to Our Platform!</h2>
-      <p style="color: #333;">We are excited to have you join us. Below is your message:</p>
+      <h2 style="color: #4f46e5;">{{topic}}!</h2>
+      <p style="color: #333;">{{greeting}}:</p>
       <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">
         <p style="color: #555;">{{message}}</p>
       </div>
@@ -38,12 +40,32 @@ const EmailSender = () => {
 
   return (
     <div className="relative px-8 w-full flex flex-col sm:flex-row sm:justify-between sm:items-center">
-      <div className="max-w-7xl sm:w-1/2 px-4 z-50 sm:px-6 lg:px-8 pt-16 pb-12 rounded-4xl text-center lg:pt-8">
-        <h1 className="text-4xl text-start tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+      <div className="max-w-7xl sm:w-1/2 px-4 z-50 sm:px-6 lg:px-8 pt-16 pb-12 rounded-4xl text-center lg:pt-3">
+        <h1 className="text-4xl text-start tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-4xl">
           <span className="block">Compose Your Email</span>
           <span className="block text-indigo-600">Send with Confidence</span>
         </h1>
         <div className="mt-6 space-y-4 text-start">
+          <div className="relative flex items-center">
+            <Pin className="absolute left-3 text-gray-500" size={20} />
+            <input
+              type="text"
+              placeholder="Topic"
+              className="w-full p-3 pl-10 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+            />
+          </div>
+          <div className="relative flex items-center">
+            <Handshake className="absolute left-3 text-gray-500" size={20} />
+            <input
+              type="text"
+              placeholder="Greetings"
+              className="w-full p-3 pl-10 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              value={greeting}
+              onChange={(e) => setGreeting(e.target.value)}
+            />
+          </div>
           <div className="relative flex items-center">
             <User className="absolute left-3 text-gray-500" size={20} />
             <input
@@ -88,7 +110,7 @@ const EmailSender = () => {
         <div
           className="p-4 border border-gray-400 rounded-md bg-gray-50 overflow-auto"
           style={{ maxHeight: "400px", wordWrap: "break-word", overflowWrap: "break-word" }}
-          dangerouslySetInnerHTML={{ __html: emailTemplate.replace("{{message}}", message.replace(/\n/g, "<br>")) }}
+          dangerouslySetInnerHTML={{ __html: emailTemplate.replace("{{message}}", message.replace(/\n/g, "<br>")).replace("{{topic}}", topic).replace("{{greeting}}", greeting) }}
         ></div>
       </div>
     </div>

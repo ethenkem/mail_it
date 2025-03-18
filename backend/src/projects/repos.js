@@ -19,4 +19,9 @@ export class ProjectRepo {
   async getProjectById(id) {
     return await this.model.findOne({ _id: id });
   }
+
+  async updateProject(projectId, data) {
+    const filter = { _id: projectId }
+    return await this.model.findOneAndUpdate(filter, data);
+  }
 }

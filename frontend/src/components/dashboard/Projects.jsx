@@ -72,7 +72,7 @@ function Projects({ userProjects, fetchStats }) {
         </div>
         :
         <NoProjects />}
-      <ProjectSettings open={openProjectSettings} project={activeProject} handleClose={() => setOpenProjectSettings(false)} handleSave={null} />
+      {openProjectSettings && <ProjectSettings open={openProjectSettings} project={activeProject} handleClose={() => setOpenProjectSettings(false)} handleSave={null} />}
     </div>
   )
 }

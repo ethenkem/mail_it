@@ -21,6 +21,23 @@ projectRouter.get("/delete/:projectId", async (req, res) => {
   res.status(200);
 })
 
+projectRouter.put("/update", authenticateToken, async (req, res) => {
+  const projectId = req.query.projectId;
+  const data = req.body;
+  const repo = new ProjectRepo();
+  const project = await repo.updateProject(projectId, data)
+  res.status(200).json({ project })
+
+})
+
+projectRouter.put("/update/template", authenticateToken, async (req, res) => {
+  const projectId = req.query.projectId;
+  const data = req.body;
+  const repo = new ProjectRepo();
+  const project = await repo.updateProject(projectId, data)
+  res.status(200).json({ project })
+
+})
 
 projectRouter.post("/create", authenticateToken, async (req, res) => {
   const repo = new ProjectRepo()
