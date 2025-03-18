@@ -11,13 +11,14 @@ jobs:
     steps:
       - name: checkout repo 
       - uses: actions/checkout@v4 
+      - run: echo "Checking"
 
-      - name: cd into backend_dir
-      - run: cd ./backend 
-
-      - name: install depencies 
-      - run: npm i 
-
-      - name: run test 
-      - run: echo "Running test..."  
+      # - name: cd into backend_dir
+      # - run: cd ./backend 
+      #
+      # - name: install depencies 
+      # - run: npm i 
+      #
+      # - name: run test 
+      # - run: echo "Running test..."  
 
