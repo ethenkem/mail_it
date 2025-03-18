@@ -10,15 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 
-      - name: Testing
       - run: echo "Checking"
-
-      # - name: cd into backend_dir
-      # - run: cd ./backend 
-      #
-      # - name: install depencies 
-      # - run: npm i 
-      #
-      # - name: run test 
-      # - run: echo "Running test..."  
+      - run: npm i 
+      - run: echo "Running test..."  
 
