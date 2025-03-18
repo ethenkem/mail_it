@@ -4,11 +4,33 @@ import { useState } from 'react'
 import { BACKEND_URL } from "../../configs/constants"
 import UserContext from '../../contexts/UserContext'
 import NoProjects from './NoProjects'
-import { FileIcon, ImageIcon, Layout, Mail, MailIcon, Settings } from 'lucide-react'
+import { FileIcon, ImageIcon, Layout, Mail, MailIcon, Settings, TrashIcon } from 'lucide-react'
 import { NavLink } from 'react-router'
+import ProjectSettings from '../../pages/ProjectSettings'
 
-function Projects({ userProjects }) {
+function Projects({ userProjects, fetchStats }) {
   const { user } = useContext(UserContext)
+  const [openProjectSettings, setOpenProjectSettings] = useState(false)
+  const [activeProject, setActiveProjects] = useState(null)
+
+  const handleDeleteProject = async (projectId) => {
+    try {
+      await axios.get(`${BACKEND_URL}/projects/delete/${projectId}`)
+      console.log("sjsjs",)
+      //await fetchProjects()
+      await fetchStats()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleOpenSettings = (project) => {
+    setOpenProjectSettings(true)
+    setActiveProjects(project)
+
+  }
+
+
 
   return (
     <div>
@@ -34,10 +56,13 @@ function Projects({ userProjects }) {
                       <NavLink to={`/templates/${project._id}/`} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1 flex items-center'><Layout className='mr-1' /> Select Template</NavLink>
                     </div>
                     <div>
-                      <NavLink to={`/dashboard/compose-email/${project._id}/`} className='text-gray-500 flex items-center  border-gray-500 border border-1 rounded-md px-1 py-1'><Settings className='mr-1' />Project Settings</NavLink>
+                      <button onClick={() => handleOpenSettings(project)} className='text-gray-500 flex items-center  border-gray-500 border border-1 rounded-md px-1 py-1'><Settings className='mr-1' />Project Settings</button>
                     </div>
                     <div>
                       <NavLink to={`/dashboard/compose-email/${project._id}/`} className='text-gray-500 flex items-center  border-gray-500 border border-1 rounded-md px-1 py-1'><MailIcon className='mr-1' /> Compose Email</NavLink>
+                    </div>
+                    <div onClick={() => handleDeleteProject(project._id)} className='border-1 hover:bg-red-300 py-1 px-1 rounded-md border-red-600'>
+                      <TrashIcon className="text-red-600" />
                     </div>
                   </div>
                 </li>
@@ -47,6 +72,7 @@ function Projects({ userProjects }) {
         </div>
         :
         <NoProjects />}
+      <ProjectSettings open={openProjectSettings} project={activeProject} handleClose={() => setOpenProjectSettings(false)} handleSave={null} />
     </div>
   )
 }

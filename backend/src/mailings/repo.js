@@ -6,5 +6,9 @@ export class EmailRepo {
   async createEmail(project, from, to, subject, message) {
     return await this.model.create({ project, from, to, subject, message })
   }
+
+  async getUserEmailCount(user) {
+    return await this.model.countDocuments({ user })
+  }
 }
 

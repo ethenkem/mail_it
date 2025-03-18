@@ -15,10 +15,11 @@ function Dashboard() {
   const [userProjects, setUserProjects] = useState([])
   const [loadingStats, setLoadingStats] = useState(false)
   const [loadingProjects, setLoadingProjects] = useState(false)
-  const [stats, setLoading] = useState([])
+  const [stats, setStats] = useState({})
   const navigate = useNavigate()
 
   const fetchProjects = async () => {
+    console.log("shshsh")
     try {
       setLoadingProjects(true)
       const res = await axios.get(`${BACKEND_URL}/projects`, {
@@ -27,8 +28,9 @@ function Dashboard() {
           'Content-Type': 'application/json',
         }
       });
+      const sortedData = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       setLoadingProjects(false)
-      setUserProjects(res.data)
+      setUserProjects(sortedData)
     } catch (err) {
       console.log(err)
       setLoadingProjects(false)
@@ -39,13 +41,14 @@ function Dashboard() {
   const fetchStats = async () => {
     try {
       setLoadingStats(true)
-      const res = await axios.get(`${BACKEND_URL}/stats`, {
+      const res = await axios.get(`${BACKEND_URL}/core/stats`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           'Content-Type': 'application/json',
         }
       }
       )
+      setStats(res.data)
       setLoadingStats(false)
     } catch (err) {
       console.log(err)
@@ -123,7 +126,7 @@ function Dashboard() {
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 truncate">Total Projects</dt>
-                      <dd className="text-lg font-medium text-gray-900">24</dd>
+                      <dd className="text-lg font-medium text-gray-900">{stats.projectCount}</dd>
                     </dl>
                   </div>
                 </div>
@@ -141,7 +144,7 @@ function Dashboard() {
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 truncate">Active Campaigns</dt>
-                      <dd className="text-lg font-medium text-gray-900">8</dd>
+                      <dd className="text-lg font-medium text-gray-900">{stats.campaignCount}</dd>
                     </dl>
                   </div>
                 </div>
@@ -168,10 +171,10 @@ function Dashboard() {
           </div>
         }
         {loadingProjects ? <ProjectsSkeleton /> :
-          <Projects userProjects={userProjects} />
+          <Projects userProjects={userProjects} fetchStats={fetchStats}  />
         }
       </main>
-      <CreateProject showCreateProjectModal={showAddProject} setShowCreateProjectModal={setShowAddProject} fetchProjects={fetchProjects} />
+      <CreateProject showCreateProjectModal={showAddProject} setShowCreateProjectModal={setShowAddProject} fetchStats={fetchStats} fetchProjects={fetchProjects} />
     </div>
   );
 

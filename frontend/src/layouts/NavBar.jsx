@@ -11,6 +11,15 @@ function NavBar({ setShowLoginModal }) {
 
   const navigate = useNavigate()
 
+  const handleLogout = () => {
+    const user = localStorage.getItem("user")
+    if (user) {
+      localStorage.clear("user")
+      navigate("/")
+    }
+    navigate("/")
+  }
+
 
   return (
     <header className="relative">
@@ -28,9 +37,13 @@ function NavBar({ setShowLoginModal }) {
             <NavLink to={"/templates"} className="text-gray-600 hover:text-gray-900">View Templates</NavLink>
             <NavLink to={"/docs"} className="text-gray-600 hover:text-gray-900">Documentation</NavLink>
             {user ?
-              (<NavLink to={"/dashboard"} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
-                Dashboard
-              </NavLink>)
+              (
+                <>
+                  <NavLink to={"/dashboard"} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    Dashboard
+                  </NavLink>
+                  <button onClick={handleLogout} className='text-gray-400 border-2 border-gray-400 hover:text-gray-500 hover:border-gray-500 py-1 rounded-md px-2'>Logout</button>
+                </>)
               :
               (<NavLink
                 to={"/login"} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
@@ -42,7 +55,7 @@ function NavBar({ setShowLoginModal }) {
       </nav>
 
       <SideBar open={openSideBar} setOpenSideBar={setOpenSideBar} />
-    </header>
+    </header >
 
   )
 }

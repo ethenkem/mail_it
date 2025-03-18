@@ -6,7 +6,7 @@ import { BACKEND_URL } from '../../configs/constants'
 import UserContext from '../../contexts/UserContext'
 import { BarLoader } from 'react-spinners'
 
-function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetchProjects }) {
+function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetchStats, fetchProjects }) {
   const [projectName, setProjectName] = useState("")
   const [description, setDescription] = useState("")
   const [loading, setLoading] = useState(false)
@@ -28,6 +28,7 @@ function CreateProject({ showCreateProjectModal, setShowCreateProjectModal, fetc
       setDescription("")
       setLoading(false)
       await fetchProjects()
+      await fetchStats()
     } catch (error) {
       setLoading(false)
     }

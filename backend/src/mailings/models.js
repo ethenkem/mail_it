@@ -24,6 +24,10 @@ const EmailSchema = Schema({
   message: {
     required: true,
     type: String,
+  },
+  sent: {
+    type: Boolean,
+    default: false
   }
 })
 
