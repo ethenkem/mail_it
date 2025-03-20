@@ -1,6 +1,6 @@
 import { Editor } from '@monaco-editor/react';
 import { Box } from '@mui/material'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import NavBar from '../layouts/NavBar';
 import HtmlTemplateLoader from '../components/customize/HtmlTemplateLoader';
 import { _htmlContent } from "../components/test.js"
@@ -13,8 +13,10 @@ import { ClipLoader } from 'react-spinners';
 
 function CustomizeTemplate() {
   const [htmlContent, setHtmlContent] = useState(_htmlContent)
+  const [template, setTemplate] = useState({})
   const [loading, setLoading] = useState(false)
-  const { projectId } = useParams()
+  const [templateLoading, setTemplateLoading] = useState(false)
+  const { projectId, templateId } = useParams()
   const { user } = useContext(UserContext)
 
   function handleEditorChange(value) {
@@ -26,7 +28,26 @@ function CustomizeTemplate() {
     navigate("/")
   }
 
+  const fetchTemplate = async () => {
+    try {
+      setLoading(true)
+      const res = await axios.get(`${BACKEND_URL}/core/templates/${templateId}`)
+      setLoading(false)
+      console.log(res.data)
+      setTemplate(res.data)
+      setHtmlContent(res.data.htmlContent)
+    } catch (err) {
+      setLoading(false)
+      console.log(err)
+    }
+  }
+
   const handleSubmit = async () => {
+    //alert(projectId)
+    if (projectId == "undefined") {
+      alert("This is a Demo, please select a project to save")
+      return
+    }
     setLoading(true)
     const data = {
       templateName: "s",
@@ -47,14 +68,18 @@ function CustomizeTemplate() {
     }
   }
 
+  useEffect(() => {
+    fetchTemplate()
+  }, [])
+
   return (
     <Box className="h-screen relative overflow-y-scroll">
-      <div className="absolute flex flex-row items-center z-50 space-x-3 left-120 px-6 mt-2">
-        <X size={30} onClick={handleCloseIde} className='text-gray-600 hover:text-gray-200 bg-white rounded-md' />
-        {loading ? <div className='bg-white px-2 py-1 rounded-md'><ClipLoader size={15} className='text-gray-600' /></div> : <SaveIcon onClick={handleSubmit} size={30} className='text-gray-600 bg-white hover:text-gray-200 rounded-md' />}
-      </div>
       <div className='flex  flex-col w-full sm:flex-row space-x-1  bg-neutral-900  h-screen'>
         <div className="relative w-full order-2 sm:order-0 sm:w-1/2 h-screen">
+          <div className="absolute flex flex-row items-center z-50 space-x-3 right-2 px-6 mt-2">
+            <X size={30} onClick={handleCloseIde} className='text-gray-600 hover:text-gray-200 bg-white rounded-md' />
+            {loading ? <div className='bg-white px-2 py-1 rounded-md'><ClipLoader size={15} className='text-gray-600' /></div> : <SaveIcon onClick={handleSubmit} size={30} className='text-gray-600 bg-white hover:text-gray-200 rounded-md' />}
+          </div>
           <Editor
             theme='vs-dark'
             defaultLanguage="html"

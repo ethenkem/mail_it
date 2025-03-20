@@ -9,4 +9,8 @@ export class TemplateRepo {
   async getAll() {
     return await this.model.find({});
   }
+
+  async getTemplate(id) {
+    return await this.model.findOne({ _id: id })
+  }
 }

@@ -9,8 +9,12 @@ jobs:
   test_backend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 
-      - run: echo "Checking"
-      - run: npm i 
-      - run: echo "Running test..."  
+      - name: checkout repo 
+        uses: actions/checkout@v4  
+
+      - name: install depencies 
+        run: npm i -w backend
+
+      - name: run test 
+        run: echo "Running test..."  
 

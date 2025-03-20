@@ -30,7 +30,7 @@ function App() {
             <Route path='/docs' element={<Documentation />} />
           </Route>
           <Route path='/customizer' element={<CustomizeTemplate />} />
-          <Route path='/customizer/:projectId' element={<CustomizeTemplate />} />
+          <Route path='/customizer/:projectId/:templateId' element={<CustomizeTemplate />} />
           <Route path='/login' element={<LoginPage />} />
         </Routes>
       </UserContext.Provider>

@@ -48,7 +48,7 @@ const adminOptions = {
 
 export const admin = new AdminJS(adminOptions);
 
-admin.watch();
+//admin.watch();
 
 export const adminRouter = AdminJSExpress.buildRouter(admin);
 

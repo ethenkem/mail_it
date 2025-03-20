@@ -12,6 +12,7 @@ import TemplateSkeleton from "../components/templates/TemplateSkeleton";
 export default function Templates() {
   const [templates, setTemplates] = useState([])
   const [loadingTemplates, setLoadingTemplates] = useState(false)
+  const [templateModal, setTemplateModal] = useState(false)
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [loading, setLoading] = useState(false)
   const { user, setUser } = useContext(UserContext)
@@ -26,20 +27,31 @@ export default function Templates() {
     setTemplates(res.data)
   }
 
-  const submitTemplateForProject = async (templateName) => {
-    setSelectedTemplate(templateName)
+
+  const handleTemplatePreview = (template) => {
+    setSelectedTemplate(template)
+    setTemplateModal(!templateModal)
+  }
+
+  const submitTemplateForProject = async (templateFile) => {
+    setSelectedTemplate(templateFile)
     setLoading(true)
     const data = {
-      template: templateName
+      template: templateFile
     }
-    const res = await axios.put(`${BACKEND_URL}/projects/update/template/?projectId=${projectId}`, data, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        'Content-Type': 'application/json',
-      }
-    })
-    setLoading(false)
-    console.log(res)
+    try {
+      const res = await axios.put(`${BACKEND_URL}/projects/update/template/?projectId=${projectId}`, data, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          'Content-Type': 'application/json',
+        }
+      })
+      setLoading(false)
+      console.log(res)
+    } catch (err) {
+      setLoading(false)
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -58,14 +70,14 @@ export default function Templates() {
                 <h2 className="text-lg font-semibold">{template.templateName}</h2>
               </CardContent>
               <CardActions className="flex justify-between">
-                <button onClick={() => setSelectedTemplate(template)} className="bg-indigo-600 text-white rounded-md py-2 px-2 hover:bg-indigo-500">
+                <button onClick={() => handleTemplatePreview(template)} className="bg-indigo-600 text-white rounded-md py-2 px-2 hover:bg-indigo-500">
                   Preview
                 </button>
-                <NavLink to={`/customizer/${projectId}/`} onClick={() => setSelectedTemplate(template)} className="bg-indigo-600 text-white px-2 py-2 rounded-md hover:bg-indigo-500">
+                <NavLink to={`/customizer/${projectId}/${template._id}`} onClick={() => setSelectedTemplate(template)} className="bg-indigo-600 text-white px-2 py-2 rounded-md hover:bg-indigo-500">
                   Customize
                 </NavLink>
-                <button onClick={() => submitTemplateForProject(template?.templateName)} className="bg-indigo-600 text-white px-2 py-2 rounded-md hover:bg-indigo-500">
-                  {loading && selectedTemplate == template.name ? "updating..." : "Select"}
+                <button onClick={() => submitTemplateForProject(template.templateFile)} className="bg-indigo-600 text-white px-2 py-2 rounded-md hover:bg-indigo-500">
+                  {loading && selectedTemplate == template.templateFile ? "updating..." : "Select"}
                 </button>
               </CardActions>
             </Card>
@@ -74,10 +86,10 @@ export default function Templates() {
       }
 
       {/* Modal for Enlarged Preview */}
-      <Dialog open={!!selectedTemplate} onClose={() => setSelectedTemplate(null)}>
-        <DialogTitle>{selectedTemplate?.name}</DialogTitle>
+      <Dialog open={templateModal} onClose={() => handleTemplatePreview(null)}>
+        <DialogTitle>{selectedTemplate?.templateName}</DialogTitle>
         <DialogContent>
-          <img src={selectedTemplate?.image} alt={selectedTemplate?.name} className="w-full rounded-lg" />
+          <img src={selectedTemplate?.templateImage} alt={selectedTemplate?.name} className="w-full rounded-lg" />
         </DialogContent>
       </Dialog>
     </div>

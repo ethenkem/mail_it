@@ -15,34 +15,42 @@ coreRouter.post("/upload-template", templateUploadMiddleware, async (req, res) =
   const templateFile = req.files["templateFile"][0];
   const templateImage = req.files["templateImage"][0];
   const b64 = Buffer.from(templateImage.buffer).toString("base64");
-  const _template = `email_templates/${templateFile.originalname}.hbs`
-  fs.writeFileSync(_template, templateFile.buffer);
+  const timestamp = Date.now()
+  const _templateName = `${timestamp}_${templateFile.originalname}`
+  const _templateFile = `${_template}.handlebars`
+  fs.writeFileSync(_templateFile, templateFile.buffer);
   let dataURI = "data:" + templateImage.mimetype + ";base64," + b64;
   const cldRes = await handleUpload(dataURI);
-
-  console.log("ksks")
-  const template = await repo.addTemplate(templateName, templateDescription, _template, cldRes.secure_url);
+  const template = await repo.addTemplate(templateName, templateDescription, _templateName, cldRes.secure_url);
   res.status(200).json({ status: true, message: "template has been added", data: template });
 })
 
 
-coreRouter.post("/upload-raw-template", templateUploadMiddleware, async (req, res) => {
+coreRouter.post("/upload-raw-custom-template", templateUploadMiddleware, async (req, res) => {
   const repo = new TemplateRepo()
   const projectId = req.query.projectId;
   const { templateName, rawTemplate } = req.body;
   console.log(rawTemplate)
-  //const b64 = Buffer.from(templateImage.buffer).toString("base64");
   const date = new Date()
-  const _template = `email_templates/${templateName + "_" + projectId}.hbs`
-  fs.writeFileSync(_template, rawTemplate);
-  //let dataURI = "data:" + templateImage.mimetype + ";base64," + b64;
+  const _templateName = `${templateName + "_" + projectId}.html`
+  const _templateFile = `email_templates/${_templateName}.handlebars`
+  fs.writeFileSync(_templateFile, rawTemplate);
   res.status(200).json({ status: true, message: "template has been added", data: null });
 })
+
 
 coreRouter.get("/templates", async (req, res) => {
   const repo = new TemplateRepo()
   const templates = await repo.getAll()
   res.status(200).json(templates);
+})
+
+coreRouter.get("/templates/:templateId", async (req, res) => {
+  const repo = new TemplateRepo();
+  const templateId = req.params.templateId
+  const template = await repo.getTemplate(templateId)
+  const file = fs.readFileSync(String(template.templateFile), "utf-8")
+  res.status(200).json({ ...template, htmlContent: file })
 })
 
 coreRouter.get("/stats", authenticateToken, async (req, res) => {

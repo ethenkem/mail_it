@@ -1,42 +1,58 @@
 import { BACKEND_URL } from "../configs/constants"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mail, User, MessageCircle, Pin, Handshake } from "lucide-react";
 import axios from "axios";
+import EmailPreviewSkeleton from "../components/dashboard/EmailPreviewSkeleton"
+import { useParams } from "react-router";
+import { BarLoader } from "react-spinners";
 
 const EmailSender = () => {
   const [recipients, setRecipients] = useState("");
   const [topic, setTopic] = useState("")
   const [greeting, setGreeting] = useState("")
+  const [template, setTemplate] = useState("")
+  const [sending, setSending] = useState(false)
+  const [templateLoading, setTemplateLoading] = useState(false)
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [project, setProject] = useState({})
+  const { projectId } = useParams()
 
-  const emailTemplate = `
-    <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 10px; width: 100%; max-width: 600px; word-wrap: break-word; overflow-wrap: break-word;">
-      <h2 style="color: #4f46e5;">{{topic}}!</h2>
-      <p style="color: #333;">{{greeting}}:</p>
-      <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">
-        <p style="color: #555;">{{message}}</p>
-      </div>
-      <p style="color: #777; margin-top: 10px;">Thank you, <br /> The Team</p>
-    </div>
-  `;
+  const todayYear = new Date()
+
+  const confEmail = async () => {
+    setTemplateLoading(true)
+    const res = await axios.get(`${BACKEND_URL}/mailers/conf-mail?projectId=${projectId}`);
+    console.log(res.data)
+    setTemplate(res.data.htmlContent)
+    setProject(res.data.project)
+    setTemplateLoading(false)
+  }
 
   const handleSendEmail = async () => {
     const data = {
       to: recipients,
       subject: subject,
       message: message,
+      topic,
+      greeting
     }
     try {
-      const res = await axios.post((`${BACKEND_URL}/mailer/send-mail`), data)
+      setSending(true)
+      const res = await axios.post((`${BACKEND_URL}/mailers/send-mail/?projectId=${projectId}`), data)
+      console.log(res.data)
+      setSending(false)
+      alert(res.data.message)
     }
-    catch {
-
+    catch (err) {
+      setSending(false)
+      console.log(err)
     }
-    console.log("Sending email to:", recipients);
-    console.log("Subject:", subject);
-    console.log("Message:", message);
   };
+
+  useEffect(() => {
+    confEmail()
+  }, [])
 
   return (
     <div className="relative px-8 w-full flex flex-col sm:flex-row sm:justify-between sm:items-center">
@@ -80,6 +96,7 @@ const EmailSender = () => {
             <Mail className="absolute left-3 text-gray-500" size={20} />
             <input
               type="text"
+              required
               placeholder="Subject"
               className="w-full p-3 pl-10 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={subject}
@@ -101,17 +118,19 @@ const EmailSender = () => {
             className="w-full py-3 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 flex items-center justify-center space-x-2"
           >
             <Mail size={20} />
-            <span>Send Email</span>
+            <span>{sending?  <BarLoader color="white" className='mx-auto' /> : "Send Email"}</span>
           </button>
         </div>
       </div>
       <div className="sm:w-1/2 p-6 border border-gray-300 rounded-md shadow-md bg-white">
         <h2 className="text-lg font-semibold mb-2">Email Preview</h2>
-        <div
-          className="p-4 border border-gray-400 rounded-md bg-gray-50 overflow-auto"
-          style={{ maxHeight: "400px", wordWrap: "break-word", overflowWrap: "break-word" }}
-          dangerouslySetInnerHTML={{ __html: emailTemplate.replace("{{message}}", message.replace(/\n/g, "<br>")).replace("{{topic}}", topic).replace("{{greeting}}", greeting) }}
-        ></div>
+        {templateLoading ? <EmailPreviewSkeleton /> :
+          <div
+            className="p-4 border border-gray-400 rounded-md bg-gray-50 overflow-auto"
+            style={{ maxHeight: "400px", wordWrap: "break-word", overflowWrap: "break-word" }}
+            dangerouslySetInnerHTML={{ __html: template.replace("{{ message }}", message.replace(/\n/g, "<br>")).replace("{{ topic }}", topic).replace("{{ greeting }}", greeting).replace("{{ year }}", todayYear.getFullYear()).replace("{{ company_name }}", project?.companyName) }}
+          ></div>
+        }
       </div>
     </div>
   );

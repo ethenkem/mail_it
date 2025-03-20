@@ -11,6 +11,11 @@ const projectSchema = Schema({
     type: String,
     required: true
   },
+  
+  companyName: {
+    type: String,
+    required: false
+  },
 
   template: {
     type: String,
