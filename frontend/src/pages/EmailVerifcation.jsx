@@ -3,13 +3,14 @@ import axios from 'axios'
 import { Mail, Lock, X, User } from 'lucide-react'
 import React, { useState } from 'react'
 import { BACKEND_URL } from '../configs/constants'
+import { useParams, useNavigate } from 'react-router'
 
 function EmailVerification({ showEmailVerificationModal, setShowEmailVerificationModal, setShowLoginModal }) {
   const [email, setEmail] = useState("")
   const [code, setCode] = useState("")
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false)
-
+  const navigate = useNavigate()
 
   const handleSumit = async () => {
     setLoading(true)
@@ -21,7 +22,8 @@ function EmailVerification({ showEmailVerificationModal, setShowEmailVerificatio
       setLoading(false)
       if (res.status == 200) {
         setShowEmailVerificationModal(false)
-        setShowLoginModal(true)
+        //setShowLoginModal(true)
+        navigate("/login")
       }
       else {
         console.log(res.status)

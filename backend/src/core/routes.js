@@ -28,6 +28,7 @@ coreRouter.post("/upload-template", templateUploadMiddleware, async (req, res) =
 
 coreRouter.post("/upload-raw-custom-template", templateUploadMiddleware, async (req, res) => {
   const repo = new TemplateRepo()
+  const projectRepo = new ProjectRepo()
   const projectId = req.query.projectId;
   const { templateName, rawTemplate } = req.body;
   console.log(rawTemplate)
@@ -35,7 +36,8 @@ coreRouter.post("/upload-raw-custom-template", templateUploadMiddleware, async (
   const _templateName = `${templateName + "_" + projectId}.html`
   const _templateFile = `email_templates/${_templateName}.handlebars`
   fs.writeFileSync(_templateFile, rawTemplate);
-  res.status(200).json({ status: true, message: "template has been added", data: null });
+  const project = await projectRepo.updateProject(projectId, {template: _templateName})
+  res.status(200).json({ status: true, message: "Template has been added", data: null });
 })
 
 
@@ -45,12 +47,10 @@ coreRouter.get("/templates", async (req, res) => {
   res.status(200).json(templates);
 })
 
-coreRouter.get("/templates/:templateId", async (req, res) => {
-  const repo = new TemplateRepo();
-  const templateId = req.params.templateId
-  const template = await repo.getTemplate(templateId)
-  const file = fs.readFileSync(String(template.templateFile), "utf-8")
-  res.status(200).json({ ...template, htmlContent: file })
+coreRouter.get("/templates/:templateFile", async (req, res) => {
+  const templateFile = req.params.templateFile
+  const file = fs.readFileSync(`email_templates/${templateFile}.handlebars`, "utf-8")
+  res.status(200).json({  htmlContent: file })
 })
 
 coreRouter.get("/stats", authenticateToken, async (req, res) => {

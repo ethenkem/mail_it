@@ -53,13 +53,21 @@ function Projects({ userProjects, fetchStats }) {
                     </div>
 
                     <div>
-                      <NavLink to={`/customizer/${project._id}/`} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</NavLink>
+                      {project.template ?
+                        <NavLink to={`/customizer/${project._id}/${project.template}`} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</NavLink>
+                        :
+                        <button className='text-gray-300 border-gray-300 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</button>
+                      }
                     </div>
                     <div>
-                      <button onClick={() => handleOpenSettings(project)} className='text-gray-500 flex items-center  border-gray-500 border border-1 rounded-md px-1 py-1'><Settings className='mr-1' />Project Settings</button>
+                      <button onClick={() => handleOpenSettings(project)} className={`text-gray-500 flex items-center  border-gray-500 border border-1 rounded-md px-1 py-1`}><Settings className='mr-1' />Project Settings</button>
                     </div>
                     <div>
-                      <NavLink to={`/dashboard/compose-email/${project._id}/`} className='text-gray-500 flex items-center  border-gray-500 border border-1 rounded-md px-1 py-1'><MailIcon className='mr-1' /> Compose Email</NavLink>
+                      {project.template ?
+                        <NavLink to={`/dashboard/compose-email/${project._id}/`} className='text-gray-500 flex items-center  border-gray-500 border border-1 rounded-md px-1 py-1'><MailIcon className='mr-1' /> Compose Email</NavLink>
+                        :
+                        <button className='text-gray-300 flex items-center  border-gray-300 border border-1 rounded-md px-1 py-1'><MailIcon className='mr-1' /> Compose Email</button>
+                      }
                     </div>
                     <div onClick={() => handleDeleteProject(project._id)} className='border-1 hover:bg-red-300 py-1 px-1 rounded-md border-red-600'>
                       <TrashIcon className="text-red-600" />

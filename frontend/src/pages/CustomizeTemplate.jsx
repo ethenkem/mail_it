@@ -43,25 +43,25 @@ function CustomizeTemplate() {
   }
 
   const handleSubmit = async () => {
-    //alert(projectId)
-    if (projectId == "undefined") {
+    if (projectId == undefined) {
       alert("This is a Demo, please select a project to save")
       return
     }
     setLoading(true)
     const data = {
-      templateName: "s",
+      templateName: "custom",
       rawTemplate: htmlContent
     }
     try {
-      const res = await axios.post(`${BACKEND_URL}/core/upload-raw-template?projectId=jsjs`, data, {
+      const res = await axios.post(`${BACKEND_URL}/core/upload-raw-custom-template?projectId=${projectId}`, data, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           'Content-Type': 'application/json',
         }
       })
+      console.log(res.data)
       setLoading(false)
-      alert(projectId)
+      alert(res.data.message)
     } catch (err) {
       setLoading(false)
       console.log(err)
