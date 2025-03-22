@@ -1,12 +1,13 @@
 import express from "express";
 import fs from "fs"
 import { templateUploadMiddleware } from "../configs/media/middlewares.js"
-import { handleUpload } from "../configs/media/cloudinary.js";
+import { handleUploadTemaplateImage, handleUploadTemaplates, handleUploadCustomTemaplates } from "../configs/media/cloudinary.js";
 import { TemplateRepo } from "./repos.js";
 import { authenticateToken } from "../auths/middlewares.js";
 import { ProjectRepo } from "../projects/repos.js";
 import { EmailRepo } from "../mailings/repo.js";
 import { UserRepo } from "../auths/repo.js";
+import axios from "axios";
 const coreRouter = express.Router()
 
 coreRouter.post("/upload-template", templateUploadMiddleware, async (req, res) => {
@@ -14,14 +15,13 @@ coreRouter.post("/upload-template", templateUploadMiddleware, async (req, res) =
   const { templateName, templateDescription } = req.body;
   const templateFile = req.files["templateFile"][0];
   const templateImage = req.files["templateImage"][0];
-  const b64 = Buffer.from(templateImage.buffer).toString("base64");
-  const timestamp = Date.now()
-  const _templateName = `${timestamp}_${templateFile.originalname}`
-  const _templateFile = `${_template}.handlebars`
-  fs.writeFileSync(_templateFile, templateFile.buffer);
-  let dataURI = "data:" + templateImage.mimetype + ";base64," + b64;
-  const cldRes = await handleUpload(dataURI);
-  const template = await repo.addTemplate(templateName, templateDescription, _templateName, cldRes.secure_url);
+  const templateImageB64 = Buffer.from(templateImage.buffer).toString("base64");
+  const templateFileB64 = Buffer.from(templateFile.buffer).toString("base64");
+  let dataURI = "data:" + templateImage.mimetype + ";base64," + templateImageB64;
+  let templateFileDataURI = "data:" + templateFile.mimetype + ";base64," + templateFileB64;
+  const cldRes = await handleUploadTemaplateImage(dataURI);
+  const cldTemplateRes = await handleUploadTemaplates(templateFileDataURI)
+  const template = await repo.addTemplate(templateName, templateDescription, cldTemplateRes.secure_url, cldRes.secure_url);
   res.status(200).json({ status: true, message: "template has been added", data: template });
 })
 
@@ -33,10 +33,11 @@ coreRouter.post("/upload-raw-custom-template", templateUploadMiddleware, async (
   const { templateName, rawTemplate } = req.body;
   console.log(rawTemplate)
   const date = new Date()
-  const _templateName = `${templateName + "_" + projectId}.html`
-  const _templateFile = `email_templates/${_templateName}.handlebars`
+  const _templateFile = `email_templates/${templateName + "_" + projectId}.html`
   fs.writeFileSync(_templateFile, rawTemplate);
-  const project = await projectRepo.updateProject(projectId, {template: _templateName})
+  const cldRes = await handleUploadCustomTemaplates(_templateFile)
+  fs.unlinkSync(_templateFile)
+  const project = await projectRepo.updateProject(projectId, { template: cldRes.secure_url })
   res.status(200).json({ status: true, message: "Template has been added", data: null });
 })
 
@@ -47,10 +48,16 @@ coreRouter.get("/templates", async (req, res) => {
   res.status(200).json(templates);
 })
 
-coreRouter.get("/templates/:templateFile", async (req, res) => {
-  const templateFile = req.params.templateFile
-  const file = fs.readFileSync(`email_templates/${templateFile}.handlebars`, "utf-8")
-  res.status(200).json({  htmlContent: file })
+coreRouter.get("/templates/load", async (req, res) => {
+  console.log(req.query.template)
+  const templateFileUri = req.query.template
+  try {
+    const cldres = await axios.get(templateFileUri, { responseType: "text" })
+    res.status(200).json({ htmlContent: cldres.data })
+  } catch (err) {
+    console.log(err)
+    res.status(400).json({ htmlContent: null })
+  }
 })
 
 coreRouter.get("/stats", authenticateToken, async (req, res) => {

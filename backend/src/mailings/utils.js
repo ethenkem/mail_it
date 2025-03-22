@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer"
 import hbs from "nodemailer-express-handlebars";
 import { handlebarOptions } from "../utils/hbs.js";
+import { emailTranspoter } from "../configs/email.js";
 
 export class CustomEmailer {
   constructor(EMAIL_USER, EMAIL_USER_PASSWORD) {
@@ -30,4 +31,15 @@ export class CustomEmailer {
     this.emailTranspoter.sendMail(mail);
     this.emailTranspoter.close()
   }
+}
+
+
+export const sendEmail = (from, to, subject, htmlContent) => {
+  const mail = {
+    from,
+    to,
+    subject,
+    htmlContent,
+  }
+  emailTranspoter.sendMail(mail);
 }

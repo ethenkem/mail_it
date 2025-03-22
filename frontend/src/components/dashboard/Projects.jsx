@@ -54,7 +54,7 @@ function Projects({ userProjects, fetchStats }) {
 
                     <div>
                       {project.template ?
-                        <NavLink to={`/customizer/${project._id}/${project.template}`} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</NavLink>
+                        <NavLink to={`/customizer/${project._id}/`} state={{"template": project.template}} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</NavLink>
                         :
                         <button className='text-gray-300 border-gray-300 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</button>
                       }

@@ -1,11 +1,11 @@
 import { Editor } from '@monaco-editor/react';
 import { Box } from '@mui/material'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import NavBar from '../layouts/NavBar';
 import HtmlTemplateLoader from '../components/customize/HtmlTemplateLoader';
 import { _htmlContent } from "../components/test.js"
 import { SaveIcon, X } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 import { BACKEND_URL } from '../configs/constants.js';
 import UserContext from '../contexts/UserContext.jsx';
@@ -16,13 +16,16 @@ function CustomizeTemplate() {
   const [template, setTemplate] = useState({})
   const [loading, setLoading] = useState(false)
   const [templateLoading, setTemplateLoading] = useState(false)
-  const { projectId, templateId } = useParams()
+  const { projectId } = useParams()
+  const location = useLocation()
   const { user } = useContext(UserContext)
 
   function handleEditorChange(value) {
     setHtmlContent(value)
   }
   const navigate = useNavigate()
+
+
 
   const handleCloseIde = () => {
     navigate("/")
@@ -31,7 +34,7 @@ function CustomizeTemplate() {
   const fetchTemplate = async () => {
     try {
       setLoading(true)
-      const res = await axios.get(`${BACKEND_URL}/core/templates/${templateId}`)
+      const res = await axios.get(`${BACKEND_URL}/core/templates/load/?template=${location.state.template}`)
       setLoading(false)
       console.log(res.data)
       setTemplate(res.data)
@@ -84,7 +87,7 @@ function CustomizeTemplate() {
             theme='vs-dark'
             defaultLanguage="html"
             language='html'
-            defaultValue={htmlContent}
+            value={htmlContent}
             onChange={handleEditorChange}
           />
         </div>

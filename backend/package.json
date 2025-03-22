@@ -16,6 +16,7 @@
     "@adminjs/mongoose": "^4.1.0",
     "@adminjs/upload": "^4.0.2",
     "adminjs": "^7.8.15",
+    "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
