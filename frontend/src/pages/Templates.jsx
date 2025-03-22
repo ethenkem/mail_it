@@ -73,7 +73,7 @@ export default function Templates() {
                 <button onClick={() => handleTemplatePreview(template)} className="bg-indigo-600 text-white rounded-md py-2 px-2 hover:bg-indigo-500">
                   Preview
                 </button>
-                <NavLink to={`/customizer/${projectId}/${template._id}`} onClick={() => setSelectedTemplate(template)} className="bg-indigo-600 text-white px-2 py-2 rounded-md hover:bg-indigo-500">
+                <NavLink to={`/customizer/${projectId}`} state={{"template": template._id}} onClick={() => setSelectedTemplate(template)} className="bg-indigo-600 text-white px-2 py-2 rounded-md hover:bg-indigo-500">
                   Customize
                 </NavLink>
                 <button onClick={() => submitTemplateForProject(template.templateFile)} className="bg-indigo-600 text-white px-2 py-2 rounded-md hover:bg-indigo-500">
