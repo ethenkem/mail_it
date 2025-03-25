@@ -168,7 +168,7 @@ const ProjectSettings = ({ open, handleClose, project, handleSave }) => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6">
           <p className="w-full sm:w-1/3 mb-2 sm:mb-0">Project Template</p>
           <div className="flex w-full border-2 border-gray-400 px-4 py-2 rounded-md justify-between hover:border-gray-500 hover:text-indigo-800">
-            <p>{projectTemplate}</p>
+            <p className="truncate">{projectTemplate.split("/")[projectTemplate.split("/").length-1]}</p>
             <button
               onClick={() => navigate(`/templates/${project._id}`)}
               className="text-indigo-600 hover:text-indigo-700"

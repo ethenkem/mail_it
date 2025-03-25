@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Card, CardContent, CardMedia, CardActions, Button, Dialog, DialogTitle, DialogContent } from "@mui/material";
 import mainImg from "./../assets/mail.jpg"
-import { NavLink, useParams } from "react-router";
+import { NavLink, useNavigate, useParams } from "react-router";
 import axios from "axios";
 import { BACKEND_URL } from "../configs/constants";
 import UserContext from "../contexts/UserContext";
@@ -17,7 +17,7 @@ export default function Templates() {
   const [loading, setLoading] = useState(false)
   const { user, setUser } = useContext(UserContext)
   const { projectId } = useParams()
-
+  const navigate = useNavigate()
 
   const fetchTemplates = async () => {
     setLoadingTemplates(true)
@@ -48,6 +48,7 @@ export default function Templates() {
       })
       setLoading(false)
       console.log(res)
+      navigate("/dashboard")
     } catch (err) {
       setLoading(false)
       console.log(err)

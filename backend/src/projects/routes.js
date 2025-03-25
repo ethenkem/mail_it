@@ -13,7 +13,7 @@ projectRouter.get("", authenticateToken, async (req, res) => {
   res.status(200).json(projects);
 })
 
-projectRouter.get("/delete/:projectId", async (req, res) => {
+projectRouter.delete("/delete/:projectId", async (req, res) => {
   const projectId = req.params.projectId;
   console.log(projectId)
   const repo = new ProjectRepo()

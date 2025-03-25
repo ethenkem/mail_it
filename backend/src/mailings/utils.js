@@ -34,12 +34,12 @@ export class CustomEmailer {
 }
 
 
-export const sendEmail = (from, to, subject, htmlContent) => {
+export const sendEmail = (from, to, subject, html) => {
   const mail = {
     from,
     to,
     subject,
-    htmlContent,
+    html,
   }
   emailTranspoter.sendMail(mail);
 }

@@ -5,19 +5,19 @@ import { BACKEND_URL } from "../../configs/constants"
 import UserContext from '../../contexts/UserContext'
 import NoProjects from './NoProjects'
 import { FileIcon, ImageIcon, Layout, Mail, MailIcon, Pencil, Settings, TrashIcon } from 'lucide-react'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import ProjectSettings from '../../pages/ProjectSettings'
 
-function Projects({ userProjects, fetchStats }) {
+function Projects({ userProjects, fetchStats, fetchProjects }) {
   const { user } = useContext(UserContext)
   const [openProjectSettings, setOpenProjectSettings] = useState(false)
   const [activeProject, setActiveProjects] = useState(null)
 
   const handleDeleteProject = async (projectId) => {
     try {
-      await axios.get(`${BACKEND_URL}/projects/delete/${projectId}`)
+      axios.delete(`${BACKEND_URL}/projects/delete/${projectId}`)
       console.log("sjsjs",)
-      //await fetchProjects()
+      await fetchProjects()
       await fetchStats()
     } catch (error) {
       console.log(error)
@@ -54,7 +54,7 @@ function Projects({ userProjects, fetchStats }) {
 
                     <div>
                       {project.template ?
-                        <NavLink to={`/customizer/${project._id}/`} state={{"template": project.template}} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</NavLink>
+                        <NavLink to={`/customizer/${project._id}/`} state={{ "template": project.template }} className='text-gray-500 border-gray-500 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</NavLink>
                         :
                         <button className='text-gray-300 border-gray-300 border border-1 rounded-md px-1 py-1 flex items-center'><Pencil className='mr-1' /> Customize Template</button>
                       }

@@ -35,7 +35,13 @@ mailerRouter.post("/send-mail", async (req, res) => {
         throw new Error(`Failed to fetch template: ${response.statusText}`);
       }
       const htmlContent = await response.text();
-      const htmlMessage = htmlContent.replace("{{ message }}", message).replace("{{ topic }}", topic).replace("{{ greeting }}", greeting);
+      const today = new Date()
+      console.log(htmlContent)
+      const htmlMessage = htmlContent.replace("{{ message }}", message)
+        .replace("{{ topic }}", topic)
+        .replace("{{ greeting }}", greeting)
+        .replace("{{ year }}", today.getFullYear())
+        .replace("{{ company_name }}", project.projectName);
       sendEmail("ethenatx@gmail.com", to, subject, htmlMessage)
     }
     else {

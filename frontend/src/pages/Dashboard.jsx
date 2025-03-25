@@ -171,7 +171,7 @@ function Dashboard() {
           </div>
         }
         {loadingProjects ? <ProjectsSkeleton /> :
-          <Projects userProjects={userProjects} fetchStats={fetchStats}  />
+          <Projects userProjects={userProjects} fetchStats={fetchStats} fetchProjects={fetchProjects}  />
         }
       </main>
       <CreateProject showCreateProjectModal={showAddProject} setShowCreateProjectModal={setShowAddProject} fetchStats={fetchStats} fetchProjects={fetchProjects} />
