@@ -52,7 +52,7 @@ coreRouter.get("/templates/load", async (req, res) => {
   console.log(req.query.template)
   const templateFileUri = req.query.template
   try {
-    const cldres = await axios.get(templateFileUri, { responseType: "text" })
+    const cldres = await axios.get(templateFileUri, { responseType: "text", timeout:10000 })
     res.status(200).json({ htmlContent: cldres.data })
   } catch (err) {
     console.log(err)
