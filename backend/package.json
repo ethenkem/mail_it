@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "set \"NODE_OPTIONS=--experimental-vm-modules\" && npx jest",
-    "dev": "nodemon ./src/bin/www"
+    "dev": "nodemon ./src/bin/www",
+    "start":"node ./src/bin/www"
   },
   "keywords": [],
   "author": "",

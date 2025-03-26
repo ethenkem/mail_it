@@ -14,7 +14,7 @@ mailerRouter.get("/conf-mail", async (req, res) => {
   const _projectRepo = new ProjectRepo()
   const projectId = req.query.projectId
   const project = await _projectRepo.getProjectById(projectId)
-  const cldres = await axios.get(project.template, { responseType: "text" })
+  const cldres = await axios.get(project.template, { responseType: "text", timeout: 10000 })
   res.status(200).json({ project: project, htmlContent: cldres.data })
 })
 
