@@ -10,16 +10,16 @@ Ensure you have the following installed on your system:
 - [npm](https://www.npmjs.com/) (Comes with Node.js)
 
 ## Installation
-Run the following command to install the necessary dependencies:
-```sh
-npm install
+### Run the following command to install the necessary dependencies:
+
+#### npm install
+
 
 
 ## Starting
-Run the following command to start both the frontend and backend:
+### Run the following command to start both the frontend and backend:
 
-```sh
-npm run conc
+#### npm run conc
 
 
 ## Access frontend on http://localhost:5173
