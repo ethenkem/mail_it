@@ -1,5 +1,5 @@
 
-# Project Name
+# MAIL IT
 
 ## Overview
 This project consists of a frontend and a backend that run concurrently. The instructions below will guide you on how to set up and start the project.
